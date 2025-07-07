@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MetroTicketApp.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Hello, World!"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <CollectionView
+                ItemsSource="{Binding Options}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedOption}"
+                HeightRequest="300">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label
+                            Text="{Binding .}"
+                            Padding="10"
+                            FontSize="16"
+                            BackgroundColor="{Binding ., Converter={StaticResource SelectionConverter}}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- SearchBar for filtering options -->
+            <SearchBar
+                x:Name="searchBar"
+                Placeholder="Search options..."
+                TextChanged="OnSearchTextChanged"/>
+
+            <!-- Picker for the dropdown menu -->
+            <Picker
+                x:Name="picker"
+                Title="Select an option"
+                ItemsSource="{Binding FilteredItems}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
