@@ -10,44 +10,6 @@ public enum Line
     Transition,
 }
 
-public enum Ticket
-{
-    NoTicket,
-    Yellow,
-    Green,
-    Red,
-    Beige
-}
-
-public static class StatusExtensions
-{
-    public static string ToString(this Ticket ticket)
-    {
-        return ticket switch
-        {
-            Ticket.NoTicket => "No Ticket",
-            Ticket.Yellow => "Yellow",
-            Ticket.Green => "Green",
-            Ticket.Red => "Red",
-            Ticket.Beige => "Beige",
-            _ => throw new Exception("Unimplemented for this ticket type")
-        };
-    }
-
-    public static string ToHex(this Ticket ticket)
-    {
-        return ticket switch
-        {
-            Ticket.NoTicket => "#FFF",
-            Ticket.Yellow => "#FAF43A",
-            Ticket.Green => "#C5F1C2",
-            Ticket.Red => "#F89B92",
-            Ticket.Beige => "#D7C4AF",
-            _ => throw new Exception("Unimplemented for this ticket type")
-        };
-    }
-}
-
 public class Station : IStringPresentable
 {
     private string name;
@@ -71,72 +33,78 @@ public class Station : IStringPresentable
     }
 
 
-    public Station(string name, Line line)
+    public Station(string name, string visibleData, Line line)
     {
         this.name = name;
+        this.VisibleData = visibleData;
         this.line = line;
     }
 
-    public string VisibleData => this.name;
+    public string VisibleData { get; private set; }
 
     private static List<Station> BuildAllStations()
     {
 
         List<Station> stations = new List<Station>(128);
 
-        string[] line1Stations =
+        string[][] line1Stations =
         [
-            "New El-Marg",
-            "El-Marg",
-            "Ezbet El-Nakhl",
-            "Ain Shams",
-            "El-Matareyya",
-            "Helmeyet El-Zaitoun",
-            "Hadayeq El-Zaitoun",
-            "Saray El-Qobba",
-            "Hammamat El-Qobba",
-            "Kobri El-Qobba",
-            "Manshiet El-Sadr",
-            "El-Demerdash",
-            "Ghamra",
-            "Al Shohadaa",
-            "Urabi",
-            "Naser",
-            "Sadat",
-            "Saad Zaghloul",
-            "AlSayyeda Zeinab",
-            "El-Malek El-Saleh",
-            "Mar Girgis",
-            "El-Zahraa'",
-            "Dar El-Salam",
-            "Hadayeq El-Maadi",
-            "Maadi",
-            "Thakanat El-Maad",
-            "Tora El-Balad",
-            "Kozzika",
-            "Tora El-Asmant",
-            "El-Maasara",
-            "Hadayeq Helwan",
-            "Wadi Hof",
-            "Helwan University",
-            "Ain Helwan",
-            "Helwan",
+            ["New El-Marg", "المرج الجديدة"],
+            ["El-Marg", "المرج"],
+            ["Ezbet El-Nakhl", "عزبة النخل"],
+            ["Ain Shams", "عين شمس"],
+            ["El-Matareyya", "المطرية"],
+            ["Helmeyet El-Zaitoun", "حلمية الزيتون"],
+            ["Hadayeq El-Zaitoun", "حدائق الزيتون"],
+            ["Saray El-Qobba", "سراي القبة"],
+            ["Hammamat El-Qobba", "حمامات القبة"],
+            ["Kobri El-Qobba", "كوبري القبة"],
+            ["Manshiet El-Sadr", "منشية الصدر"],
+            ["El-Demerdash", "الدمرداش"],
+            ["Ghamra", "غمرة"],
+            ["Al Shohadaa", "الشهداء"],
+            ["Urabi", "أحمد عرابي"],
+            ["Naser", "جمال عبد الناصر"],
+            ["Sadat", "أنور السادات"],
+            ["Saad Zaghloul", "سعد زغلول"],
+            ["AlSayyeda Zeinab", "السيدة زينب"],
+            ["El-Malek El-Saleh", "الملك الصالح"],
+            ["Mar Girgis", "مار جرجس"],
+            ["El-Zahraa'", "الزهراء"],
+            ["Dar El-Salam", "دار السلام"],
+            ["Hadayeq El-Maadi", "حدائق المعادي"],
+            ["Maadi", "المعادي"],
+            ["Thakanat El-Maad", "ثكنات المعادي"],
+            ["Tora El-Balad", "طرة البلد"],
+            ["Kozzika", "كوتسكا"],
+            ["Tora El-Asmant", "طرة الأسمنت"],
+            ["El-Maasara", "المعصرة"],
+            ["Hadayeq Helwan", "حدائق حلوان"],
+            ["Wadi Hof", "وادي حوف"],
+            ["Helwan University", "جامعة حلوان"],
+            ["Ain Helwan", "عين حلوان"],
+            ["Helwan", "حلوان"],
         ];
-
 
         for (int i = 0; i < line1Stations.Length - 1; i++)
         {
-            Station? station1 = stations.Find(s => s.VisibleData == line1Stations[i]);
+            Station? station1 = stations.Find(s => s.name == line1Stations[i][0]);
             if (station1 is null)
             {
-                station1 = new(line1Stations[i], transitionStations.Contains(line1Stations[i + 1]) ? Line.Transition : Line.Line1);
+                station1 = new(
+                    line1Stations[i][0],
+                    line1Stations[i][1],
+                    transitionStations.Contains(line1Stations[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station1);
             }
 
-            Station? station2 = stations.Find(s => s.VisibleData == line1Stations[i + 1]);
+            Station? station2 = stations.Find(s => s.name == line1Stations[i + 1][0]);
             if (station2 is null)
             {
-                station2 = new(line1Stations[i + 1], transitionStations.Contains(line1Stations[i + 1]) ? Line.Transition : Line.Line1);
+                station2 = new(
+                    line1Stations[i + 1][0],
+                    line1Stations[i + 1][1],
+                    transitionStations.Contains(line1Stations[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station2);
             }
 
@@ -144,43 +112,49 @@ public class Station : IStringPresentable
             station2.Neighbors.Add(station1);
         }
 
-        string[] line2Stations =
+        string[][] line2Stations =
         [
-            "Shobra El Kheima",
-            "Koliet El-Zeraa",
-            "Mezallat",
-            "Khalafawy",
-            "Sainte Teresa",
-            "Road El-Farag",
-            "Massara",
-            "Al Shohadaa",
-            "Ataba",
-            "Naguib",
-            "Sadat",
-            "Opera",
-            "Dokki",
-            "El Behoos",
-            "Cairo University",
-            "Faisal",
-            "Giza",
-            "Omm el Misryeen",
-            "Sakiat Mekki",
-            "El Mounib",
+            ["Shobra El Kheima", "شبرا الخيمة"],
+            ["Koliet El-Zeraa", "كلية الزراعة"],
+            ["Mezallat", "المظلات"],
+            ["Khalafawy", "الخلفاوي"],
+            ["Sainte Teresa", "سانت تريزا"],
+            ["Road El-Farag", "روض الفرج"],
+            ["Massara", "مسرة"],
+            ["Al Shohadaa", "الشهداء"],
+            ["Ataba", "العتبة"],
+            ["Naguib", "محمد نجيب"],
+            ["Sadat", "أنور السادات"],
+            ["Opera", "الأوبرا"],
+            ["Dokki", "الدقي"],
+            ["El Behoos", "البحوث"],
+            ["Cairo University", "جامعة القاهرة"],
+            ["Faisal", "فيصل"],
+            ["Giza", "الجيزة"],
+            ["Omm el Misryeen", "ضواحي الجيزة"],
+            ["Sakiat Mekki", "ساقية مكي"],
+            ["El Mounib", "المنيب"],
         ];
 
         for (int i = 0; i < line2Stations.Length - 1; i++)
         {
-            Station? station1 = stations.Find(s => s.VisibleData == line2Stations[i]);
+            Station? station1 = stations.Find(s => s.name == line2Stations[i][0]);
             if (station1 is null)
             {
-                station1 = new(line2Stations[i], transitionStations.Contains(line2Stations[i + 1]) ? Line.Transition : Line.Line1);
+                station1 = new(
+                    line2Stations[i][0],
+                    line2Stations[i][1],
+                    transitionStations.Contains(line2Stations[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station1);
             }
 
-            Station? station2 = stations.Find(s => s.VisibleData == line2Stations[i + 1]);
+            Station? station2 = stations.Find(s => s.name == line2Stations[i + 1][0]);
             if (station2 is null)
             {
-                station2 = new(line2Stations[i + 1], transitionStations.Contains(line2Stations[i + 1]) ? Line.Transition : Line.Line1);
+                station2 = new(
+                    line2Stations[i + 1][0],
+                    line2Stations[i + 1][1],
+                    transitionStations.Contains(line2Stations[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station2);
             }
 
@@ -188,51 +162,57 @@ public class Station : IStringPresentable
             station2.Neighbors.Add(station1);
         }
 
-        string[] line3Stations =
+        string[][] line3Stations =
         [
-            "Adly Mansour",
-            "Hikestep",
-            "Omar ibn Al-khattab",
-            "Kebaa",
-            "Hisham Barakat",
-            "El-Nozha",
-            "El-Shams Club",
-            "Alf Masken",
-            "Heliopolis Square",
-            "Haroun",
-            "Al Ahram",
-            "Koleyet El Banat",
-            "Cairo Stadium",
-            "Fair Zone",
-            "Abbassia",
-            "Abdou Pasha",
-            "El Geish",
-            "Bab El Shaaria",
-            "Ataba",
-            "Naser",
-            "Maspero",
-            "Zamalek",
-            "Kit Kat",
-            "Al-Tawfikya",
-            "Wadi Al-Nile",
-            "Gamaet Al-Dowal",
-            "Bolak Al-Dakror",
-            "Cairo University",
+            ["Adly Mansour", "عدلي منصور"],
+            ["Hikestep", "الهايكستب"],
+            ["Omar ibn Al-khattab", "عمر بن الخطاب"],
+            ["Kebaa", "قباء"],
+            ["Hisham Barakat", "هشام بركات"],
+            ["El-Nozha", "النزهة"],
+            ["El-Shams Club", "نادي الشمس"],
+            ["Alf Masken", "ألف مسكن"],
+            ["Heliopolis Square", "هليوبليس"],
+            ["Haroun", "هارون"],
+            ["Al Ahram", "الأهرام"],
+            ["Koleyet El Banat", "كلية البنات"],
+            ["Cairo Stadium", "الاستاد"],
+            ["Fair Zone", "أرض المعارض"],
+            ["Abbassia", "العباسية"],
+            ["Abdou Pasha", "عبده باشا"],
+            ["El Geish", "الجيش"],
+            ["Bab El Shaaria", "باب الشعرية"],
+            ["Ataba", "العتبة"],
+            ["Naser", "جمال عبد الناصر"],
+            ["Maspero", "ماسبيرو"],
+            ["Zamalek", "صفاء حجازي"],
+            ["Kit Kat", "الكيت كات"],
+            ["Al-Tawfikya", "التوفيقية"],
+            ["Wadi Al-Nile", "وادي النيل"],
+            ["Gamaet Al-Dowal", "جامعة الدول العربية"],
+            ["Bolak Al-Dakror", "بولاق الدكرور"],
+            ["Cairo University", "جامعة القاهرة"],
         ];
 
         for (int i = 0; i < line3Stations.Length - 1; i++)
         {
-            Station? station1 = stations.Find(s => s.VisibleData == line3Stations[i]);
+            Station? station1 = stations.Find(s => s.name == line3Stations[i][0]);
             if (station1 is null)
             {
-                station1 = new(line3Stations[i], transitionStations.Contains(line3Stations[i + 1]) ? Line.Transition : Line.Line1);
+                station1 = new(
+                    line3Stations[i][0],
+                    line3Stations[i][1],
+                    transitionStations.Contains(line3Stations[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station1);
             }
 
-            Station? station2 = stations.Find(s => s.VisibleData == line3Stations[i + 1]);
+            Station? station2 = stations.Find(s => s.name == line3Stations[i + 1][0]);
             if (station2 is null)
             {
-                station2 = new(line3Stations[i + 1], transitionStations.Contains(line3Stations[i + 1]) ? Line.Transition : Line.Line1);
+                station2 = new(
+                    line3Stations[i + 1][0],
+                    line3Stations[i + 1][1],
+                    transitionStations.Contains(line3Stations[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station2);
             }
 
@@ -241,29 +221,36 @@ public class Station : IStringPresentable
         }
 
 
-        string[] line3HarounExt =
+        string[][] line3HarounExt =
         [
-            "Haroun",
-            "Al-Hegaz Square",
-            "Al-Hegaz 2",
-            "Military Academy",
-            "Sheraton",
-            "Airport",
+            ["Haroun", "هارون"],
+            ["Al-Hegaz Square", "ميدان الحجاز"],
+            ["Al-Hegaz 2", "الحجاز"],
+            ["Military Academy", "الكلية الحربية"],
+            ["Sheraton", "مساكن شيراتون"],
+            ["Airport", "مطار القاهرة"],
+
         ];
 
         for (int i = 0; i < line3HarounExt.Length - 1; i++)
         {
-            Station? station1 = stations.Find(s => s.VisibleData == line3HarounExt[i]);
+            Station? station1 = stations.Find(s => s.name == line3HarounExt[i][0]);
             if (station1 is null)
             {
-                station1 = new(line3HarounExt[i], transitionStations.Contains(line3HarounExt[i + 1]) ? Line.Transition : Line.Line1);
+                station1 = new(
+                    line3HarounExt[i][0],
+                    line3HarounExt[i][1],
+                    transitionStations.Contains(line3HarounExt[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station1);
             }
 
-            Station? station2 = stations.Find(s => s.VisibleData == line3HarounExt[i + 1]);
+            Station? station2 = stations.Find(s => s.name == line3HarounExt[i + 1][0]);
             if (station2 is null)
             {
-                station2 = new(line3HarounExt[i + 1], transitionStations.Contains(line3HarounExt[i + 1]) ? Line.Transition : Line.Line1);
+                station2 = new(
+                    line3HarounExt[i + 1][0],
+                    line3HarounExt[i + 1][1],
+                    transitionStations.Contains(line3HarounExt[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station2);
             }
 
@@ -271,30 +258,36 @@ public class Station : IStringPresentable
             station2.Neighbors.Add(station1);
         }
 
-        string[] line3KitKatExt =
+        string[][] line3KitKatExt =
         [
-            "Kit Kat",
-            "Sudan",
-            "Imbaba",
-            "Al-Bohy",
-            "Al-Kawmeiah",
-            "Ring Road",
-            "Rod Al-Farag Corridor",
+            ["Kit Kat", "الكيت كات"],
+            ["Sudan", "السودان"],
+            ["Imbaba", "إمبابة"],
+            ["Al-Bohy", "البوهي"],
+            ["Al-Kawmeiah", "القومية العربية"],
+            ["Ring Road", "الطريق الدائري"],
+            ["Rod Al-Farag Corridor", "محور روض الفرج"],
         ];
 
         for (int i = 0; i < line3KitKatExt.Length - 1; i++)
         {
-            Station? station1 = stations.Find(s => s.VisibleData == line3KitKatExt[i]);
+            Station? station1 = stations.Find(s => s.name == line3KitKatExt[i][0]);
             if (station1 is null)
             {
-                station1 = new(line3KitKatExt[i], transitionStations.Contains(line3KitKatExt[i + 1]) ? Line.Transition : Line.Line1);
+                station1 = new(
+                    line3KitKatExt[i][0],
+                    line3KitKatExt[i][1],
+                    transitionStations.Contains(line3KitKatExt[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station1);
             }
 
-            Station? station2 = stations.Find(s => s.VisibleData == line3KitKatExt[i + 1]);
+            Station? station2 = stations.Find(s => s.name == line3KitKatExt[i + 1][0]);
             if (station2 is null)
             {
-                station2 = new(line3KitKatExt[i + 1], transitionStations.Contains(line3KitKatExt[i + 1]) ? Line.Transition : Line.Line1);
+                station2 = new(
+                    line3KitKatExt[i + 1][0],
+                    line3KitKatExt[i + 1][1],
+                    transitionStations.Contains(line3KitKatExt[i + 1][0]) ? Line.Transition : Line.Line1);
                 stations.Add(station2);
             }
 
@@ -362,11 +355,8 @@ public class Station : IStringPresentable
         return distance;
     }
 
-    public static (Ticket ticket, uint distance) CalcuateTicket(string src, string dst)
+    public static (Ticket ticket, uint distance) CalcuateTicket(Station source, Station destination)
     {
-        Station source = AllStations.First(s => s.VisibleData == src);
-        Station destination = AllStations.First(s => s.VisibleData == dst);
-
         uint distance = CalculateDistanceBetween(source, destination);
 
         Ticket ticket = distance switch
