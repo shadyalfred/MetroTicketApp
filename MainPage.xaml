@@ -4,6 +4,9 @@
              xmlns:ui="clr-namespace:Plugin.Maui.SimpleSearchPicker;assembly=Plugin.Maui.SimpleSearchPicker"
              xmlns:local="clr-namespace:MetroTicketApp"
              x:Class="MetroTicketApp.MainPage">
+    <ContentPage.Resources>
+        <Color x:Key="DarkSecondaryColor">WhiteSmoke</Color>
+    </ContentPage.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -31,6 +34,7 @@
             Margin="5,10,5,0"
             IsNullValueVisible="False"
             MinimumHeightRequest="250"
+            SecondaryTextColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}}"
             SelectedItemChanged="OnSourceStationChanged"/>
 
         <ui:SearchPicker
@@ -42,6 +46,7 @@
             Margin="5,10,5,0"
             IsNullValueVisible="False"
             MinimumHeightRequest="250"
+            SecondaryTextColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}}"
             SelectedItemChanged="OnDestinationStationChanged"/>
 
         <Label
