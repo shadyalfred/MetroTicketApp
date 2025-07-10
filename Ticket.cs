@@ -26,7 +26,7 @@ public static class TicketExtensions
     {
         return ticket switch
         {
-            Ticket.NoTicket => new Color(0, 0, 0),
+            Ticket.NoTicket => new Color(255, 255, 255),
             Ticket.Yellow => new Color(255, 237, 0),
             Ticket.Green => new Color(0, 255, 22),
             Ticket.Red => new Color(252, 20, 36),

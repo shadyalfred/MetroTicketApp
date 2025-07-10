@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MetroTicketApp"
     Shell.FlyoutBehavior="Disabled"
-    Title="MetroTicketApp">
+    Title="Metro Ticket">
 
     <ShellContent
         ContentTemplate="{DataTemplate local:MainPage}"

@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:MetroTicketApp"
              x:Class="MetroTicketApp.MainPage">
     <ContentPage.Resources>
-        <Color x:Key="DarkSecondaryColor">WhiteSmoke</Color>
+        <Color x:Key="DarkPrimaryColor">WhiteSmoke</Color>
     </ContentPage.Resources>
 
     <Grid>
@@ -34,7 +34,8 @@
             Margin="5,10,5,0"
             IsNullValueVisible="False"
             MinimumHeightRequest="250"
-            SecondaryTextColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}}"
+            TextColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}}"
+            SecondaryTextColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}}"
             SelectedItemChanged="OnSourceStationChanged"/>
 
         <ui:SearchPicker
@@ -46,7 +47,8 @@
             Margin="5,10,5,0"
             IsNullValueVisible="False"
             MinimumHeightRequest="250"
-            SecondaryTextColor="{AppThemeBinding Dark={StaticResource DarkSecondaryColor}}"
+            TextColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}}"
+            SecondaryTextColor="{AppThemeBinding Dark={StaticResource DarkPrimaryColor}}"
             SelectedItemChanged="OnDestinationStationChanged"/>
 
         <Label
