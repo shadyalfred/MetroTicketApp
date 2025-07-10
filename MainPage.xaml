@@ -1,48 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ui="clr-namespace:Plugin.Maui.SimpleSearchPicker;assembly=Plugin.Maui.SimpleSearchPicker"
+             xmlns:local="clr-namespace:MetroTicketApp"
              x:Class="MetroTicketApp.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <Label
-                Text="Hello, World!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <CollectionView
-                ItemsSource="{Binding Options}"
-                SelectionMode="Single"
-                SelectedItem="{Binding SelectedOption}"
-                HeightRequest="300">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Label
-                            Text="{Binding .}"
-                            Padding="10"
-                            FontSize="16"
-                            BackgroundColor="{Binding ., Converter={StaticResource SelectionConverter}}"/>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+        <Label
+            Text="Metro Ticket"
+            Style="{StaticResource Headline}"
+            Grid.ColumnSpan="2"
+            Margin="0,35,0,15"
+            SemanticProperties.HeadingLevel="Level1"/>
 
-            <!-- SearchBar for filtering options -->
-            <SearchBar
-                x:Name="searchBar"
-                Placeholder="Search options..."
-                TextChanged="OnSearchTextChanged"/>
+        <ui:SearchPicker
+            x:Name="sourceStationPicker"
+            Grid.Row="1"
+            Placeholder="From"
+            Padding="15,0"
+            Margin="5,10,5,0"
+            IsNullValueVisible="False"
+            MinimumHeightRequest="250"
+            SelectedItemChanged="OnSourceStationChanged"/>
 
-            <!-- Picker for the dropdown menu -->
-            <Picker
-                x:Name="picker"
-                Title="Select an option"
-                ItemsSource="{Binding FilteredItems}"
-                ItemDisplayBinding="{Binding Name}"
-                SelectedIndexChanged="OnPickerSelectedIndexChanged"/>
+        <ui:SearchPicker
+            x:Name="destinationStationPicker"
+            Grid.Row="1"
+            Grid.Column="1"
+            Placeholder="To"
+            Padding="15,0"
+            Margin="5,10,5,0"
+            IsNullValueVisible="False"
+            MinimumHeightRequest="250"
+            SelectedItemChanged="OnDestinationStationChanged"/>
 
-        </VerticalStackLayout>
-    </ScrollView>
-
+        <Label
+            x:Name="ticketLabel"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Style="{StaticResource SubHeadline}"
+            VerticalOptions="Start"
+            VerticalTextAlignment="Start"/>
+    </Grid>
 </ContentPage>

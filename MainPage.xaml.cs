@@ -1,22 +1,46 @@
-﻿namespace MetroTicketApp;
+﻿using Plugin.Maui.SimpleSearchPicker;
+
+namespace MetroTicketApp;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    public MainPage()
+    {
+        InitializeComponent();
 
-	private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
-	{
-		// Update the search text in the ViewModel
-		DisplayAlert("Search", $"You searched for: {e.NewTextValue}", "OK");
-	}
-	private void OnPickerSelectedIndexChanged(object sender, EventArgs e)
-	{
-		// Handle the selected item (e.g., display it or perform an action)
-		DisplayAlert("Selected", $"You selected: {picker.SelectedItem}", "OK");
-	}
+        sourceStationPicker.ItemsSource = Station.AllStations;
+        destinationStationPicker.ItemsSource = Station.AllStations;
+    }
 
+    private void OnSourceStationChanged(object sender, IStringPresentable e)
+    {
+        if (destinationStationPicker.SelectedItem is null)
+        {
+            return;
+        }
+
+        string source = sourceStationPicker.SelectedItem?.VisibleData ?? throw new Exception("Selected source station is null");
+        string destination = destinationStationPicker.SelectedItem?.VisibleData ?? throw new Exception("Selected destination station is null");
+
+        (Ticket ticket, uint distance) = Station.CalcuateTicket(source, destination);
+
+        ticketLabel.Text = $"{ticket} Ticket\n{distance} station[s]";
+        ticketLabel.TextColor = Color.Parse(ticket.ToHex());
+    }
+
+    private void OnDestinationStationChanged(object sender, IStringPresentable e)
+    {
+        if (sourceStationPicker.SelectedItem is null)
+        {
+            return;
+        }
+
+        string source = sourceStationPicker.SelectedItem?.VisibleData ?? throw new Exception("Selected source station is null");
+        string destination = destinationStationPicker.SelectedItem?.VisibleData ?? throw new Exception("Selected destination station is null");
+
+        (Ticket ticket, uint distance) = Station.CalcuateTicket(source, destination);
+
+        ticketLabel.Text = $"{ticket} Ticket\n{distance} station[s]";
+        ticketLabel.TextColor = Color.Parse(ticket.ToHex());
+    }
 }
-
