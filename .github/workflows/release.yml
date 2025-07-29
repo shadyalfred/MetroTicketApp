@@ -1,0 +1,72 @@
+name: Build and Release Android APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write # Required for creating releases
+
+jobs:
+  build-android:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.411'
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'microsoft'
+        java-version: '17'
+
+    - name: Install MAUI workload
+      run: dotnet workload install maui maui-android
+
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build Android APK
+      run: |
+        dotnet publish -f net8.0-android -c Release -p:AndroidPackageFormat=apk
+
+    - name: Find APK file
+      id: find-apk
+      shell: pwsh
+      run: |
+        $apkFile = Get-ChildItem -Path "./bin/Release/net8.0-android" -Filter "*.apk" -Recurse | Select-Object -First 1
+        if ($apkFile) {
+          echo "apk-path=$($apkFile.FullName)" >> $env:GITHUB_OUTPUT
+          echo "apk-name=$($apkFile.Name)" >> $env:GITHUB_OUTPUT
+        } else {
+          Write-Error "No APK file found"
+          exit 1
+        }
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        draft: false
+        prerelease: false
+
+    - name: Upload APK to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ${{ steps.find-apk.outputs.apk-path }}
+        asset_name: ${{ steps.find-apk.outputs.apk-name }}
+        asset_content_type: application/vnd.android.package-archive
