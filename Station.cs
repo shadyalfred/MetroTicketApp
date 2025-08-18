@@ -310,7 +310,7 @@ public class Station : IStringPresentable
             source
         };
 
-        uint distance = 0;
+        uint distance = 1;
 
         Queue<Station> q = new(4);
         foreach (var station in source.Neighbors)
