@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -58,5 +59,10 @@
             Style="{StaticResource SubHeadline}"
             VerticalOptions="Start"
             VerticalTextAlignment="Start"/>
+        
+        
+        <ScrollView Grid.Row="3" Grid.ColumnSpan="2" Margin="20">
+            <StackLayout x:Name="stations"></StackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>
