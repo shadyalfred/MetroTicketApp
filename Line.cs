@@ -22,18 +22,18 @@ public static class LineExtensions
 
         if (line.HasFlag(Line.Line1))
         {
-            return new Color(1, 51, 153);
+            return new Color(100, 181, 246);
         }
 
         if (line.HasFlag(Line.Line2))
         {
-            return new Color(189, 75, 41);
+            return new Color(220, 88, 48);
 
         }
 
         if (line.HasFlag(Line.Line3))
         {
-            return new Color(0, 129, 1);
+            return new Color(0, 204, 2);
         }
 
         throw new Exception("Unimplemented for this metro line value");

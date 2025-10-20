@@ -1,80 +1,83 @@
-﻿using Plugin.Maui.SimpleSearchPicker;
+﻿namespace MetroTicketApp;
 
-namespace MetroTicketApp;
+public enum StationSelectionType
+{
+    From,
+    To
+}
 
+[QueryProperty(nameof(StationSelectionResult), "StationSelectionResult")]
 public partial class MainPage : ContentPage
 {
+    private Station? fromStation;
+    private Station? toStation;
+    public StationSelectionResult StationSelectionResult
+    {
+        set
+        {
+            if (value.Type == StationSelectionType.From)
+            {
+                fromStation = value.Station;
+            }
+            else
+            {
+                toStation = value.Station;
+            }
+            Update(value.Type);
+        }
+    }
+
     public MainPage()
     {
         InitializeComponent();
-
-        sourceStationPicker.ItemsSource = Station.AllStations;
-        destinationStationPicker.ItemsSource = Station.AllStations;
     }
 
-    private void OnSourceStationChanged(object sender, IStringPresentable e)
+    private async void OnFromClicked(object sender, EventArgs e)
     {
-        if (destinationStationPicker.SelectedItem is null)
-        {
-            return;
-        }
-
-        Station source = (Station) e;
-        Station destination = (Station) destinationStationPicker.SelectedItem;
-
-        var pathStations = Station.FindPath(source, destination);
-        stations.Children.Clear();
-
-        uint distance = (uint) pathStations.Count;
-
-        Ticket ticket = Station.CalcuateTicket(distance);
-
-        ticketLabel.Text = $"{ticket.ToCustomString()} Ticket\n{distance} station[s]";
-        ticketLabel.TextColor = ticket.ToColor();
-
-        foreach (var s in pathStations)
-        {
-            stations.Children.Add(new Label
-            {
-                Text = s.VisibleData,
-                TextColor = s.Line.ToColor(),
-                FontSize = 20,
-                HorizontalOptions = LayoutOptions.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-            });
-        }
+        await Navigation.PushAsync(new SelectPage(StationSelectionType.From));
     }
 
-    private void OnDestinationStationChanged(object sender, IStringPresentable e)
+    private async void OnToClicked(object sender, EventArgs e)
     {
-        if (sourceStationPicker.SelectedItem is null)
+        await Navigation.PushAsync(new SelectPage(StationSelectionType.To));
+    }
+
+    private void Update(StationSelectionType stationSelectionType)
+    {
+        if (stationSelectionType == StationSelectionType.From)
         {
-            return;
+            FromButton.Text = fromStation?.Name;
+        }
+        else
+        {
+            ToButton.Text = toStation?.Name;
         }
 
-        Station source = (Station)sourceStationPicker.SelectedItem;
-        Station destination = (Station)e;
-
-        var pathStations = Station.FindPath(source, destination);
-        stations.Children.Clear();
-
-        uint distance = (uint) pathStations.Count;
-
-        Ticket ticket = Station.CalcuateTicket(distance);
-
-        ticketLabel.Text = $"{ticket.ToCustomString()} Ticket\n{distance} station[s]";
-        ticketLabel.TextColor = ticket.ToColor();
-
-        foreach (var s in pathStations)
+        if (fromStation is not null && toStation is not null)
         {
-            stations.Children.Add(new Label
+
+            var pathStations = Station.FindPath(fromStation, toStation);
+            stations.Children.Clear();
+
+            uint distance = (uint)pathStations.Count;
+
+            Ticket ticket = Station.CalcuateTicket(distance);
+
+            TicketLabel.Text = $"{ticket.ToCustomString()} Ticket\n{distance} station[s]";
+            TicketLabel.TextColor = ticket.ToColor();
+
+            foreach (var s in pathStations)
             {
-                Text = s.VisibleData,
-                TextColor = s.Line.ToColor(),
-                FontSize = 20,
-                HorizontalOptions = LayoutOptions.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-            });
+                stations.Children.Add(new Label
+                {
+                    Text = s.Name,
+                    TextColor = s.Line.ToColor(),
+                    FontSize = 20,
+                    HorizontalOptions = LayoutOptions.Center,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    Padding = 5,
+                });
+            }
         }
     }
 }

@@ -1,8 +1,6 @@
-using Plugin.Maui.SimpleSearchPicker;
-
 namespace MetroTicketApp;
 
-public class Station : IStringPresentable
+public class Station
 {
     private readonly string name;
     public Line Line;
@@ -28,11 +26,11 @@ public class Station : IStringPresentable
     public Station(string name, string visibleData, Line line)
     {
         this.name = name;
-        this.VisibleData = visibleData;
+        this.Name = visibleData;
         this.Line = line;
     }
 
-    public string VisibleData { get; private set; }
+    public string Name { get; private set; }
 
     private static List<Station> BuildAllStations()
     {
