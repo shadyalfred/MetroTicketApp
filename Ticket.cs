@@ -1,3 +1,5 @@
+namespace MetroTicketApp;
+
 public enum Ticket
 {
     NoTicket,

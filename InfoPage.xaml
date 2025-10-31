@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MetroTicketApp.InfoPage"
+             xmlns:strings="clr-namespace:MetroTicketApp.Resources.Strings">
+    <VerticalStackLayout>
+        <Label 
+            Text="{x:Static strings:AppResources.TicketPrices}"
+            Style="{StaticResource Headline}"
+            HorizontalOptions="Center" />
+        <Label 
+            x:Name="YellowTicketPrice"
+            Text="{x:Static strings:AppResources.YellowTicketPrice}"
+            FontSize="25"
+            HorizontalOptions="Center" />
+        <Label 
+            x:Name="GreenTicketPrice"
+            Text="{x:Static strings:AppResources.GreenTicketPrice}"
+            FontSize="25"
+            HorizontalOptions="Center" />
+        <Label 
+            x:Name="RedTicketPrice"
+            Text="{x:Static strings:AppResources.RedTicketPrice}"
+            FontSize="25"
+            HorizontalOptions="Center" />
+        <Label 
+            x:Name="BeigeTicketPrice"
+            Text="{x:Static strings:AppResources.BeigeTicketPrice}"
+            FontSize="25"
+            HorizontalOptions="Center" />
+
+        <Label 
+            Text="{x:Static strings:AppResources.StationColors}"
+            Style="{StaticResource Headline}"
+            Margin="0,35,0,5"
+            HorizontalOptions="Center" />
+        <Label 
+            x:Name="WhiteStations"
+            Text="{x:Static strings:AppResources.WhiteStations}"
+            FontSize="25"
+            HorizontalOptions="Center" />
+        <Label 
+            x:Name="BlueStations"
+            Text="{x:Static strings:AppResources.BlueStations}"
+            FontSize="25"
+            HorizontalOptions="Center" />
+        <Label 
+            x:Name="RedStations"
+            Text="{x:Static strings:AppResources.RedStations}"
+            FontSize="25"
+            HorizontalOptions="Center" />
+        <Label 
+            x:Name="GreenStations"
+            Text="{x:Static strings:AppResources.GreenStations}"
+            FontSize="25"
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,57 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MetroTicketApp"
-             x:Class="MetroTicketApp.MainPage">
-    <ContentPage.Resources>
-        <Color x:Key="DarkPrimaryColor">WhiteSmoke</Color>
-    </ContentPage.Resources>
+             x:Class="MetroTicketApp.MainPage"
+             xmlns:strings="clr-namespace:MetroTicketApp.Resources.Strings">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid
+        RowDefinitions="Auto,*">
+        <FlexLayout
+            Padding="10,0"
+            Direction="Row"
+            JustifyContent="SpaceBetween">
+            <Button
+                Text="{x:Static strings:AppResources.SwitchLocaleButton}"
+                CornerRadius="50"
+                Clicked="OnSwitchLocaleClicked" />
+            <Button
+                CornerRadius="50"
+                Text="ⓘ"
+                Clicked="OnInfoClicked"/>
+        </FlexLayout>
 
-        <Label
-            Text="Metro Ticket"
-            Style="{StaticResource Headline}"
-            Grid.ColumnSpan="2"
-            Margin="0,35,0,15"
-            SemanticProperties.HeadingLevel="Level1"/>
+        <Grid
+            Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Button
-            x:Name="FromButton"
-            Text="From"
-            Grid.Row="1"
-            Clicked="OnFromClicked"
-            Margin="20,30,20,5" />
+            <Label
+                Text="{x:Static strings:AppResources.AppName}"
+                Style="{StaticResource Headline}"
+                Grid.ColumnSpan="2"
+                Margin="0,35,0,15"
+                SemanticProperties.HeadingLevel="Level1"/>
 
-        <Button
-            x:Name="ToButton"
-            Text="To"
-            Grid.Row="1"
-            Grid.Column="1"
-            Clicked="OnToClicked"
-            Margin="20,30,20,5" />
+            <Button
+                Text="{x:Static strings:AppResources.SourceBtn}"
+                x:Name="FromBtn"
+                Grid.Row="1"
+                Clicked="OnFromClicked"
+                Margin="20,30,20,5"/>
 
-        
-        <Label
-            x:Name="TicketLabel"
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
-            Style="{StaticResource SubHeadline}"
-            VerticalOptions="Start"
-            VerticalTextAlignment="Start" />
+            <Button
+                Text="{x:Static strings:AppResources.DestinationBtn}"
+                x:Name="ToBtn"
+                Grid.Row="1"
+                Grid.Column="1"
+                Clicked="OnToClicked"
+                Margin="20,30,20,5"/>
 
-        <ScrollView Grid.Row="3" Grid.ColumnSpan="2" Margin="20">
-            <StackLayout x:Name="stations"></StackLayout>
-        </ScrollView>
+            <Label
+                x:Name="TicketLabel"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource SubHeadline}"
+                Margin="0,25"
+                VerticalOptions="Start"
+                VerticalTextAlignment="Start"/>
+
+            <ScrollView
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Margin="20">
+                <StackLayout x:Name="Stations"></StackLayout>
+            </ScrollView>
+        </Grid>
     </Grid>
 </ContentPage>

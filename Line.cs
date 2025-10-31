@@ -41,24 +41,12 @@ public static class LineExtensions
 
     public static IEnumerable<Line> ExtractLines(this Line line)
     {
-        if (line.HasFlag(Line.Transition))
+        for (int i = 0; i < lines.Length; i++)
         {
-            int i = 0;
-            while (i < lines.Length)
+            if (line.HasFlag(lines[i]))
             {
-                if (line.HasFlag(lines[i]))
-                {
-                    yield return lines[i++];
-                }
-                else
-                {
-                    i++;
-                }
+                yield return lines[i++];
             }
-        }
-        else
-        {
-            yield return line;
         }
     }
 }

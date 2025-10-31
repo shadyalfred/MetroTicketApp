@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MetroTicketApp.SelectPage"
-             Title="Select">
+             x:Class="MetroTicketApp.SelectionPage"
+             xmlns:strings="clr-namespace:MetroTicketApp.Resources.Strings">
     <Grid RowDefinitions="Auto,Auto,*">
         <Label 
             x:Name="PageTitle"
@@ -15,23 +15,15 @@
         <SearchBar
             Grid.Row="1"
             x:Name="searchBar"
-            Placeholder="Search stations..."
+            Placeholder="{x:Static strings:AppResources.StationSearchPlaceholder}"
             TextChanged="OnStationQueryChanged" />
 
         <CollectionView
             x:Name="Stations"
             SelectionMode="Single"
             Grid.Row="2"
+            ItemsUpdatingScrollMode="KeepLastItemInView"
             SelectionChanged="OnStationSelected">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Label
-                        Text="{Binding Name}"
-                        FontSize="20"
-                        Padding="0,10"
-                        HorizontalTextAlignment="Center" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
 </ContentPage>

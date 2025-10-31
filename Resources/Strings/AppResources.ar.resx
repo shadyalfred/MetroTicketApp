@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <data name="AppName" xml:space="preserve">
+        <value>تذكرة مترو</value>
+    </data>
+    <data name="SwitchLocaleButton" xml:space="preserve">
+        <value>En</value>
+    </data>
+    <data name="SourceBtn" xml:space="preserve">
+        <value>البداية</value>
+    </data>
+    <data name="DestinationBtn" xml:space="preserve">
+        <value>الوجهة</value>
+    </data>
+    <data name="StationSearchPlaceholder" xml:space="preserve">
+        <value>ابحث...</value>
+    </data>
+
+    <data name="NoTicket" xml:space="preserve">
+        <value>بدون تذكرة</value>
+    </data>
+    <data name="YellowTicket" xml:space="preserve">
+        <value>تذكرة صفراء</value>
+    </data>
+    <data name="GreenTicket" xml:space="preserve">
+        <value>تذكرة خضراء</value>
+    </data>
+    <data name="RedTicket" xml:space="preserve">
+        <value>تذكرة حمراء</value>
+    </data>
+    <data name="BeigeTicket" xml:space="preserve">
+        <value>تذكرة بيج</value>
+    </data>
+
+    <data name="TicketPrices" xml:space="preserve">
+        <value>أسعار التذاكر</value>
+    </data>
+    <data name="YellowTicketPrice" xml:space="preserve">
+        <value>تذكرة صفراء = ٨ جنيه</value>
+    </data>
+    <data name="GreenTicketPrice" xml:space="preserve">
+        <value>تذكرة خضراء = ١٠ جنيه</value>
+    </data>
+    <data name="RedTicketPrice" xml:space="preserve">
+        <value>تذكرة حمراء = ١٥ جنيه</value>
+    </data>
+    <data name="BeigeTicketPrice" xml:space="preserve">
+        <value>تذكرة بيج = ٢٠ جنيه</value>
+    </data>
+
+    <data name="StationColors" xml:space="preserve">
+        <value>ألوان المحطات</value>
+    </data>
+    <data name="WhiteStations" xml:space="preserve">
+        <value>محطات التحويل</value>
+    </data>
+    <data name="BlueStations" xml:space="preserve">
+        <value>الخط الأول (المرج-حلوان)</value>
+    </data>
+    <data name="RedStations" xml:space="preserve">
+        <value>الخط الثاني (شبرا-المنيب)</value>
+    </data>
+    <data name="GreenStations" xml:space="preserve">
+        <value>الخط الثالث (عدلي منصور)</value>
+    </data>
+
+    <data name="StationCount_Zero" xml:space="preserve">
+        <value>0 محطة</value>
+    </data>
+    <data name="StationCount_One" xml:space="preserve">
+        <value>محطة واحدة</value>
+    </data>
+    <data name="StationCount_Two" xml:space="preserve">
+        <value>محطتان</value>
+    </data>
+    <data name="StationCount_Many" xml:space="preserve">
+        <value>{0} محطات</value>
+    </data>
+</root>

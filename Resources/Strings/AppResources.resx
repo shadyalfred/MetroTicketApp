@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <data name="AppName" xml:space="preserve">
+        <value>Metro Ticket</value>
+    </data>
+    <data name="SwitchLocaleButton" xml:space="preserve">
+        <value>Ar</value>
+    </data>
+    <data name="SourceBtn" xml:space="preserve">
+        <value>Source</value>
+    </data>
+    <data name="DestinationBtn" xml:space="preserve">
+        <value>Destination</value>
+    </data>
+    <data name="StationSearchPlaceholder" xml:space="preserve">
+        <value>Filter stations...</value>
+    </data>
+
+    <data name="NoTicket" xml:space="preserve">
+        <value>No Ticket Needed</value>
+    </data>
+    <data name="YellowTicket" xml:space="preserve">
+        <value>Yellow Ticket</value>
+    </data>
+    <data name="GreenTicket" xml:space="preserve">
+        <value>Green Ticket</value>
+    </data>
+    <data name="RedTicket" xml:space="preserve">
+        <value>Red Ticket</value>
+    </data>
+    <data name="BeigeTicket" xml:space="preserve">
+        <value>Beige Ticket</value>
+    </data>
+
+    <data name="TicketPrices" xml:space="preserve">
+        <value>Ticket Prices</value>
+    </data>
+    <data name="YellowTicketPrice" xml:space="preserve">
+        <value>Yellow Ticket = 8 LE</value>
+    </data>
+    <data name="GreenTicketPrice" xml:space="preserve">
+        <value>Green Ticket = 10 LE</value>
+    </data>
+    <data name="RedTicketPrice" xml:space="preserve">
+        <value>Red Ticket = 15 LE</value>
+    </data>
+    <data name="BeigeTicketPrice" xml:space="preserve">
+        <value>Beige Ticket = 20 LE</value>
+    </data>
+
+    <data name="StationColors" xml:space="preserve">
+        <value>Station Colors</value>
+    </data>
+    <data name="WhiteStations" xml:space="preserve">
+        <value>Transition Stations</value>
+    </data>
+    <data name="BlueStations" xml:space="preserve">
+        <value>Line 1 (Marg-Helwan)</value>
+    </data>
+    <data name="RedStations" xml:space="preserve">
+        <value>Line 2 (Shobra-Mounib)</value>
+    </data>
+    <data name="GreenStations" xml:space="preserve">
+        <value>Line 3 (Adly Mansour)</value>
+    </data>
+
+    <data name="StationCount_Zero" xml:space="preserve">
+        <value>0 Station</value>
+    </data>
+    <data name="StationCount_One" xml:space="preserve">
+        <value>1 Station</value>
+    </data>
+    <data name="StationCount_Two" xml:space="preserve">
+        <value>2 Stations</value>
+    </data>
+    <data name="StationCount_Many" xml:space="preserve">
+        <value>{0} Stations</value>
+    </data>
+</root>
